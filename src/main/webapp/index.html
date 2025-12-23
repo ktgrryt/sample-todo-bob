@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アイゼンハワーマトリックス - TODOリスト</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📋 アイゼンハワーマトリックス</h1>
+            <p class="subtitle">重要度と緊急度でタスクを管理</p>
+            <div class="header-actions">
+                <button id="addTodoBtn" class="btn btn-primary">+ 新しいタスク</button>
+                <div class="stats">
+                    <span id="totalCount">総タスク: 0</span>
+                    <span id="completedCount">完了: 0</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="matrix-container">
+            <!-- 第1象限: 重要 & 緊急 -->
+            <div class="quadrant quadrant-1" data-quadrant="1">
+                <div class="quadrant-header">
+                    <h2>🔥 重要 & 緊急</h2>
+                    <p class="quadrant-description">すぐに対応</p>
+                    <span class="task-count">0</span>
+                </div>
+                <div class="task-list" id="quadrant-1"></div>
+            </div>
+
+            <!-- 第2象限: 重要 & 緊急でない -->
+            <div class="quadrant quadrant-2" data-quadrant="2">
+                <div class="quadrant-header">
+                    <h2>📅 重要 & 緊急でない</h2>
+                    <p class="quadrant-description">計画的に取り組む</p>
+                    <span class="task-count">0</span>
+                </div>
+                <div class="task-list" id="quadrant-2"></div>
+            </div>
+
+            <!-- 第3象限: 重要でない & 緊急 -->
+            <div class="quadrant quadrant-3" data-quadrant="3">
+                <div class="quadrant-header">
+                    <h2>📞 重要でない & 緊急</h2>
+                    <p class="quadrant-description">委譲を検討</p>
+                    <span class="task-count">0</span>
+                </div>
+                <div class="task-list" id="quadrant-3"></div>
+            </div>
+
+            <!-- 第4象限: 重要でない & 緊急でない -->
+            <div class="quadrant quadrant-4" data-quadrant="4">
+                <div class="quadrant-header">
+                    <h2>🗑️ 重要でない & 緊急でない</h2>
+                    <p class="quadrant-description">削除を検討</p>
+                    <span class="task-count">0</span>
+                </div>
+                <div class="task-list" id="quadrant-4"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- タスク追加/編集モーダル -->
+    <div id="todoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">新しいタスク</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <form id="todoForm">
+                <input type="hidden" id="todoId">
+                
+                <div class="form-group">
+                    <label for="todoTitle">タスク名 *</label>
+                    <input type="text" id="todoTitle" required placeholder="タスク名を入力">
+                </div>
+
+                <div class="form-group">
+                    <label for="todoDescription">説明</label>
+                    <textarea id="todoDescription" rows="3" placeholder="詳細な説明（任意）"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="todoImportant">
+                            <span>重要</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="todoUrgent">
+                            <span>緊急</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="todoCompleted">
+                            <span>完了</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">キャンセル</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ローディングインジケーター -->
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- トーストメッセージ -->
+    <div id="toast" class="toast"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
